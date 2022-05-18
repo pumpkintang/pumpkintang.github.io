@@ -6,15 +6,15 @@
   
   <title>vuex | pumpkintang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Vuex概述1、组件之间共享数据的方式父向子传值：v-bind  属性绑定 子向父传值：v-on     事件绑定 兄弟组件之间共享数据：EventBus  $on  接收数据的那个组件 $emit 发送数据的那个组件  2、Vuex是什么Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据的共享。 3、使用Vuex同意管理状态的好处 能够在vuex中集中管理共享的数据，">
+  <meta name="description" content="Vuex概述1、组件之间共享数据的方式父向子传值：v-bind  属性绑定 子向父传值：v-on     事件绑定 兄弟组件之间共享数据：EventBus  $on  接收数据的那个组件 $emit 发送数据的那个组件  2、Vuex是什么Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据的共享。 3、使用Vuex统一管理状态的好处 能够在vuex中集中管理共享的数据，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vuex">
 <meta property="og:url" content="http://example.com/2022/05/18/vuex/index.html">
 <meta property="og:site_name" content="pumpkintang">
-<meta property="og:description" content="Vuex概述1、组件之间共享数据的方式父向子传值：v-bind  属性绑定 子向父传值：v-on     事件绑定 兄弟组件之间共享数据：EventBus  $on  接收数据的那个组件 $emit 发送数据的那个组件  2、Vuex是什么Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据的共享。 3、使用Vuex同意管理状态的好处 能够在vuex中集中管理共享的数据，">
+<meta property="og:description" content="Vuex概述1、组件之间共享数据的方式父向子传值：v-bind  属性绑定 子向父传值：v-on     事件绑定 兄弟组件之间共享数据：EventBus  $on  接收数据的那个组件 $emit 发送数据的那个组件  2、Vuex是什么Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据的共享。 3、使用Vuex统一管理状态的好处 能够在vuex中集中管理共享的数据，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-18T12:07:45.000Z">
-<meta property="article:modified_time" content="2022-05-18T12:18:21.503Z">
+<meta property="article:modified_time" content="2022-05-18T13:08:44.090Z">
 <meta property="article:author" content="pumpkintang">
 <meta name="twitter:card" content="summary">
   
@@ -103,10 +103,42 @@
 <li>$emit 发送数据的那个组件</li>
 </ol>
 <h2 id="2、Vuex是什么"><a href="#2、Vuex是什么" class="headerlink" title="2、Vuex是什么"></a>2、Vuex是什么</h2><p>Vuex是实现组件全局状态（数据）管理的一种机制，可以方便的实现组件之间的数据的共享。</p>
-<h2 id="3、使用Vuex同意管理状态的好处"><a href="#3、使用Vuex同意管理状态的好处" class="headerlink" title="3、使用Vuex同意管理状态的好处"></a>3、使用Vuex同意管理状态的好处</h2><ol>
+<h2 id="3、使用Vuex统一管理状态的好处"><a href="#3、使用Vuex统一管理状态的好处" class="headerlink" title="3、使用Vuex统一管理状态的好处"></a>3、使用Vuex统一管理状态的好处</h2><ol>
 <li>能够在vuex中集中管理共享的数据，易于开发和后期维护；</li>
-<li>能够高效地实现组件之间的数据共享，提高开发效率。</li>
+<li>能够高效地实现组件之间的数据共享，提高开发效率；</li>
+<li>存储在vuex中的数据都是响应式的，能够实时保持数据与页面的同步。</li>
 </ol>
+<h2 id="4、什么样的数据适合存储到vuex中"><a href="#4、什么样的数据适合存储到vuex中" class="headerlink" title="4、什么样的数据适合存储到vuex中"></a>4、什么样的数据适合存储到vuex中</h2><p>一般情况下，只有组件之间共享的数据，才有必要存储到vuex中；对于组件中的私有数据，依旧存储在组件自身的data中即可。（不绝对）</p>
+<h1 id="Vuex的基本使用"><a href="#Vuex的基本使用" class="headerlink" title="Vuex的基本使用"></a>Vuex的基本使用</h1><ol>
+<li><p>安装vuex依赖包</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入vuex包</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vuex</span> <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Vuex</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建store对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store =<span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="comment">//state中存放的就是全局共享的数据</span></span><br><span class="line">    <span class="attr">state</span>:&#123; <span class="attr">count</span>:<span class="number">0</span> &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将store对象挂载到vue实例中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">render</span>:<span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(app),</span><br><span class="line">    router,</span><br><span class="line">    <span class="comment">//将创建的共享数据对象，挂载到Vue实例中</span></span><br><span class="line">    <span class="comment">//所有的组件就可以直接从store中获取全局的数据了</span></span><br><span class="line">    store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Vuex的核心概念"><a href="#Vuex的核心概念" class="headerlink" title="Vuex的核心概念"></a>Vuex的核心概念</h1><h2 id="1、state"><a href="#1、state" class="headerlink" title="1、state"></a>1、state</h2><p>state提供唯一的公共数据源，所有共享的数据都要统一放到store的state中进行存储</p>
+<p><strong>组件访问state中数据的第一种方式：</strong>this.$state.state.全局数据名称</p>
+<p><strong>组件访问state中数据的第二种方式：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、从vuex中按需导入mapState函数</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapState &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2、通过刚才导入的mapState函数，将当前组件需要的全局数据，映射为当前组件的computed计算属性：</span></span><br><span class="line"><span class="attr">computed</span>:&#123;</span><br><span class="line">    ...<span class="title function_">mapState</span>([<span class="string">&#x27;count&#x27;</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、Mutation"><a href="#2、Mutation" class="headerlink" title="2、Mutation"></a>2、Mutation</h2><p>Mutation用于变更Store中的数据。</p>
+<ol>
+<li><p>只能通过mutation变更store数据，不可以直接操作store中的数据。</p>
+</li>
+<li><p>通过这种方式虽然操作起来稍微繁琐一些，但是可以集中监控所有数据的变化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义Mutation</span></span><br><span class="line"><span class="keyword">const</span> store =<span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">state</span>:&#123;</span><br><span class="line">        <span class="attr">count</span>:<span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">mutations</span>:&#123;</span><br><span class="line">        <span class="title function_">add</span>(<span class="params">state</span>)&#123;</span><br><span class="line">            <span class="comment">//变更状态</span></span><br><span class="line">            state.<span class="property">count</span>++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//触发Mutation</span></span><br><span class="line"><span class="attr">methods</span>:&#123;</span><br><span class="line">    <span class="title function_">handle</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="comment">//触发mutations的第一种方式</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="title function_">commit</span>(<span class="string">&#x27;add&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以在触发mutations时传递参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义Mutation</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">state</span>:&#123;</span><br><span class="line">        <span class="attr">count</span>:<span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">mutations</span>:&#123;</span><br><span class="line">        <span class="title function_">add</span>(<span class="params">state,step</span>)&#123;</span><br><span class="line">            <span class="comment">//变成状态</span></span><br><span class="line">            state.<span class="property">count</span>+=step</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
